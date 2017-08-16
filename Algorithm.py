@@ -16,6 +16,9 @@ def create_table():
               'ratio REAL, date_now TEXT, date TEXT, frm TEXT, till TEXT, priority REAL, status TEXT, score TEXT, '
               'frequency TEXT, Sunday TEXT, Monday TEXT, Tuesday TEXT, Wednesday TEXT, Thursday TEXT, Friday TEXT, '
               'Saturday TEXT)')
+    data = strainer("", 'sort', 'category')
+    if data == []:
+        insert_category('None', 3)
 
 
 def insert_todo(name, category, estimated_time_hours, estimated_time_min, day_when, priority, frequency):

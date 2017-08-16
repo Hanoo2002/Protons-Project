@@ -1,11 +1,12 @@
 from tkinter import *
 from Algorithm import *
-import tkinter.messagebox
 import calendar
 
+create_table()
 
-def raise_frame(frame):
-    frame.tkraise()
+
+def raise_frame(parent):
+    parent.tkraise()
 
 root = Tk()
 
@@ -22,12 +23,9 @@ Now = Frame(root)
 
 for frame in (Home, AddActivity, AddCategory, EditActivity, EditCategory, Calendar, Todo, Today, Now):
     frame.grid(row=0, column=0, sticky='news')
-###################################################################################################################################################
-#Home Frame
-    
-def edit_what():
-    ad = EditWhat(Home)
-    Home.wait_window(ad.top)
+########################################################################################################################
+# Home Frame
+
 
 class Edit:
     def __init__(self, parent):
@@ -37,11 +35,11 @@ class Edit:
 
         Label(top, text='What do you want to edit?')
 
-        category = Button(top, text="Category", command=lambda:raise_frame(EditCategory))
-        category.pack(pady=5, padx=5, side=LEFT)
+        cate = Button(top, text="Category", command=lambda: raise_frame(EditCategory))
+        cate.pack(pady=5, padx=5, side=LEFT)
 
-        Activity = Button(top, text="Activity", command=lambda:raise_frame(EditActivity))
-        Activity.pack(pady=5, padx=5, side=LEFT)
+        activity = Button(top, text="Activity", command=lambda: raise_frame(EditActivity))
+        activity.pack(pady=5, padx=5, side=LEFT)
 
 
 def edit():
@@ -57,11 +55,12 @@ class Add:
 
         Label(top, text='What do you want to add?')
 
-        category = Button(top, text="Category", command=lambda:raise_frame(AddCategory))
-        category.pack(pady=5, padx=5, side=LEFT)
+        cat = Button(top, text="Category", command=lambda: raise_frame(AddCategory))
+        cat.pack(pady=5, padx=5, side=LEFT)
 
-        Activity = Button(top, text="Activity", command=lambda:raise_frame(AddActivity))
-        Activity.pack(pady=5, padx=5, side=LEFT)
+        act = Button(top, text="Activity", command=lambda: raise_frame(AddActivity))
+        act.pack(pady=5, padx=5, side=LEFT)
+
 
 def add():
     ad = Add(Home)
@@ -70,12 +69,12 @@ def add():
 TopFrame = Frame(Home)
 MiddleFrame = Frame(Home, padx=200)
 BottomFrame = Frame(Home)
-LastFrame = Frame(Home)
+LastFrame_Home = Frame(Home)
 
 TopFrame.pack(side='top', fill=X)
 MiddleFrame.pack(side='top', ipady=5, fill=X)
 BottomFrame.pack(side='top', ipady=5, fill=X)
-LastFrame.pack(side='top', ipady=5, fill=X)
+LastFrame_Home.pack(side='top', ipady=5, fill=X)
 
 HomeLabel = Label(TopFrame, text='Home')
 HomeLabel.pack(side=LEFT)
@@ -83,33 +82,36 @@ HomeLabel.pack(side=LEFT)
 AddButton = Button(TopFrame, text='Add', command=add)
 AddButton.pack(side=RIGHT)
 
-CalendarButton = Button(MiddleFrame, text='Calendar', command=lambda:raise_frame(Calendar))
+CalendarButton = Button(MiddleFrame, text='Calendar', command=lambda: raise_frame(Calendar))
 CalendarButton.pack(padx=5, pady=10, side=LEFT)
 
-TodoButton = Button(MiddleFrame, text='Todo', command=lambda:raise_frame(Todo))
+TodoButton = Button(MiddleFrame, text='Todo', command=lambda: raise_frame(Todo))
 TodoButton.pack(padx=5, pady=10, side=LEFT)
 
-TodayButton = Button(MiddleFrame, text='Today', command=lambda:raise_frame(Today))
+TodayButton = Button(MiddleFrame, text='Today', command=lambda: raise_frame(Today))
 TodayButton.pack(padx=5, pady=10, side=LEFT)
 
-NowButton = Button(MiddleFrame, text='Now', command=lambda:raise_frame(Now))
+NowButton = Button(MiddleFrame, text='Now', command=lambda: raise_frame(Now))
 NowButton.pack(padx=5, pady=10, side=LEFT)
 
 
 category_name = strainer('name', 'sort', 'category')
 number = 0
-
-for i in range(0, 10):
-    CategoryButtton = Button(BottomFrame, text='{}'.format(category_name[number][0]), width=5, anchor="w")
-    CategoryButtton.pack(padx=5, pady=5, fill=X)
+# if category_name[number][0]
+for i in range(0, len(category_name)):
+    if number == 10:
+        break
+    CategoryButton = Button(BottomFrame, text='{}'.format(category_name[number][0]), width=5, anchor="w")
+    CategoryButton.pack(padx=5, pady=5, fill=X)
     number += 1
 
-EditButton = Button(LastFrame, text='Edit', command=edit)
+EditButton = Button(LastFrame_Home, text='Edit', command=edit)
 EditButton.pack()
 
-#################################################################################################################################################
-#AddActivity Frame
-#The layout is devided in many frames
+########################################################################################################################
+# AddActivity Frame
+# The layout is devided in many frames
+
 
 def on_entry_click(event):
     """
@@ -122,8 +124,9 @@ def on_entry_click(event):
         FirstClick = False
         entry.config(fg='black')
         entry.delete(0, "end")
-    FirstClick=True
+    FirstClick = True
     return
+
 
 def back():
     """
@@ -138,22 +141,24 @@ def insert():
     This saves the data of the user and brings him back to home
     """
     list_of_days = [Mon.get(), Tue.get(), Wed.get(), Thu.get(), Fri.get(), Sat.get(), Sun.get()]
-    NumberOfDay = 0
+    number_of_day = 0
     list_of_calendar_day_names = calendar.day_name
     frequency = []
-    for i in list_of_days:
-        if i == 1:
-            frequency.append(list_of_calendar_day_names[NumberOfDay])
-        NumberOfDay += 1
-    date = "{}/{}/{}".format(Day.get(), Month.get(), Year.get())
+    for day in list_of_days:
+        if day == 1:
+            frequency.append(list_of_calendar_day_names[number_of_day])
+            number_of_day += 1
+    date_of_activity = "{}/{}/{}".format(Day.get(), Month.get(), Year.get())
     if Category.get() == 'todo':
-        insert_todo(NameOfActivity.get(), Category.get(), HoursFrom.get(), MinTo.get(), date, Importance.get(), frequency)
+        insert_todo(NameOfActivity.get(), Category.get(), HoursFrom.get(), MinTo.get(), date_of_activity,
+                    Importance.get(), frequency)
     else:
-        insert_event(NameOfActivity.get(), Category.get(), HoursFrom.get(), MinTo.get(), date, Importance.get(), frequency)
+        insert_event(NameOfActivity.get(), Category.get(), HoursFrom.get(), MinTo.get(), date, Importance.get(),
+                     frequency)
     raise_frame(Home)
     
 
-#The first frame contains the name of the event the user will write
+# The first frame contains the name of the event the user will write
 NameFrame = Frame(AddActivity)
 NameFrame.pack(side='top', fill=X, ipady=5)
 
@@ -166,7 +171,7 @@ NameOfActivity.insert(0, "Enter the name of your event ...", )
 NameOfActivity.bind('<FocusIn>', on_entry_click)
 NameOfActivity.pack(ipadx=25, side=LEFT)
 
-#This frame includes a DropDownMenu which gets all of the categories in the database
+# This frame includes a DropDownMenu which gets all of the categories in the database
 CategoryFrame = Frame(AddActivity)
 CategoryFrame.pack(side='top', ipady=5, fill=X)
 
@@ -175,7 +180,7 @@ category_names = []
 category_name = strainer('name', 'sort', 'category')
 number = 0
 
-for i in range(0, len(category_name)):
+for loop in range(0, len(category_name)):
     category_names.append(category_name[number][0])
     number += 1
 
@@ -191,7 +196,7 @@ event.set('Todo')
 category = OptionMenu(CategoryFrame, event, "Todo", 'Event')
 category.pack(fill=X, pady=5)
 
-#This Frame contains two entry widgets, where the user will write the from and to time, aka hours and min
+# This Frame contains two entry widgets, where the user will write the from and to time, aka hours and min
 EstimatedFrame = Frame(AddActivity)
 EstimatedFrame.pack(side='top', ipady=5, fill=X)
 
@@ -206,7 +211,7 @@ MinTo.insert(0, "Min: 15 / To: 9:30")
 MinTo.bind('<FocusIn>', on_entry_click)
 MinTo.pack(ipadx=25, side=RIGHT, padx=5)
 
-#Here the user will type the date of the event
+# Here the user will type the date of the event
 DateFrame = Frame(AddActivity)
 DateFrame.pack(side='top', ipady=5, fill=X, padx=10)
 
@@ -225,7 +230,7 @@ Year.insert(0, "YYYY")
 Year.bind('<FocusIn>', on_entry_click)
 Year.pack(ipadx=25, side=LEFT, padx=5)
 
-#Here the user will say in wich days the activity should be done
+# Here the user will say in wich days the activity should be done
 FrequencyFrame = Frame(AddActivity)
 FrequencyFrame.pack(side='top', ipady=5, fill=X)
 
@@ -255,32 +260,21 @@ Radiobutton(PriorityFrame, text='2', variable=Importance, value=2).pack(side=LEF
 Radiobutton(PriorityFrame, text='3', variable=Importance, value=3).pack(side=LEFT, padx=5)
 Radiobutton(PriorityFrame, text='4', variable=Importance, value=4).pack(side=LEFT, padx=5)
 
-#This frame contains two buttons 
-LastFrame=Frame(AddActivity)
-LastFrame.pack(side='top', fill=X)
+# This frame contains two buttons
+LastFrame_AddActivity = Frame(AddActivity)
+LastFrame_AddActivity.pack(side='top', fill=X)
 
-Back = Button(LastFrame, text='Back', command=back).pack(side=LEFT, ipadx=20)
-Insert = Button(LastFrame, text='Insert', command=insert).pack(side=RIGHT, ipadx=20)
-###############################################################################################################################
-#AddCategory Frame
+Back_AddActivity = Button(LastFrame_AddActivity, text='Back', command=back).pack(side=LEFT, ipadx=20)
+Insert_AddActivity = Button(LastFrame_AddActivity, text='Insert', command=insert).pack(side=RIGHT, ipadx=20)
+########################################################################################################################
+# AddCategory Frame
 NameFrame = Frame(AddCategory)
 PriorityFrame = Frame(AddCategory)
-LastFrame=Frame(AddCategory)
+LastFrame_AddCategory = Frame(AddCategory)
 
 NameFrame.pack(side='top', fill=X, ipady=5)
 PriorityFrame.pack(side='top', ipady=5, fill=X, padx=200)
-LastFrame.pack(side='top', fill=X)
-
-FirstClick = True
-
-
-def on_entry_click(event):
-    global FirstClick
-    entry = event.widget
-    if FirstClick:
-        FirstClick = False
-        entry.config(fg='black')
-        entry.delete(0, "end")
+LastFrame_AddCategory.pack(side='top', fill=X)
 
 NameLabel = Label(NameFrame, text='Name: ')
 NameLabel.pack(side=LEFT)
@@ -305,35 +299,64 @@ def insert():
     insert_category(name.get(), Importance.get())
     raise_frame(Home)
 
+Insert_AddCategory = Button(LastFrame_AddCategory, text='Back', command=insert).pack(side=LEFT, ipadx=20)
+Back_AddCategory = Button(LastFrame_AddCategory, text='Back', command=back).pack(side=LEFT, ipadx=20)
+########################################################################################################################
+# EditActivity Frame
 
-Back = Button(LastFrame, text='Back', command=back).pack(side=LEFT, ipadx=20)
-Insert = Button(LastFrame, text='Insert', command=insert).pack(side=RIGHT, ipadx=20)
-###################################################################################################################################################
-#EditActivity Frame
+LastFrame = Frame(EditActivity)
+LastFrame.pack(side='top', fill=X)
+
+Back_EditActivity = Button(LastFrame, text='Back', command=back).pack(side=LEFT, ipadx=20)
 
 # Here you should let the user edit his/her activities
 # Functions you will use: edit, done, delete, del_done, strainer
-###################################################################################################################################################
-#EditCategory Frame
+########################################################################################################################
+# EditCategory Frame
+
+LastFrame = Frame(EditCategory)
+LastFrame.pack(side='top', fill=X)
+
+Back_EditCategory = Button(LastFrame, text='Back', command=back).pack(side=LEFT, ipadx=20)
 
 # Here you should let the user edit his/her categories
 # Functions you will use: edit, delete, strainer
-###################################################################################################################################################
-#Calendar Frame
+########################################################################################################################
+# Calendar Frame
+
+LastFrame = Frame(Calendar)
+LastFrame.pack(side='top', fill=X)
+
+Back_Calendar = Button(LastFrame, text='Back', command=back).pack(side=LEFT, ipadx=20)
 
 # Here the user should see all of his events
 # Functions you will use: strainer, done
-###################################################################################################################################################
-#Todo Frame
+########################################################################################################################
+# Todo Frame
+
+LastFrame_Todo = Frame(Todo)
+LastFrame_Todo.pack(side='top', fill=X)
+
+Back_Todo = Button(LastFrame_Todo, text='Back', command=back).pack(side=LEFT, ipadx=20)
 
 # Here the user should see all of his Todo
 # Functions you will use: strainer, done
-###################################################################################################################################################
-#Today Frame
+########################################################################################################################
+# Today Frame
+
+LastFrame_Today = Frame(Today)
+LastFrame_Today.pack(side='top', fill=X)
+
+Back_Today = Button(LastFrame_Today, text='Back', command=back).pack(side=LEFT, ipadx=20)
 
 # Functions you will use: strainer, organize(propabily you will need to make an extra db for this)
-###################################################################################################################################################
-#Now Frame
+########################################################################################################################
+# Now Frame
+
+LastFrame_Now = Frame(Now)
+LastFrame_Now.pack(side='top', fill=X)
+
+Back_Now = Button(LastFrame_Now, text='Back', command=back).pack(side=LEFT, ipadx=20)
 
 # Functions you will use: strainer(propabily you will need to make an extra db for this)
 
