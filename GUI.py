@@ -27,44 +27,9 @@ for frame in (Home, AddActivity, AddCategory, EditActivity, EditCategory, Calend
 # Home Frame
 
 
-class Edit:
-    def __init__(self, parent):
-        top = self.top = Toplevel(parent)
-
-        Label(top,fg='white',bg='blue' ,text="Edit").pack()
-
-        Label(top, text='What do you want to edit?')
-
-        cate = Button(top, text="Category", command=lambda: raise_frame(EditCategory))
-        cate.pack(pady=5, padx=5, side=LEFT)
-
-        activity = Button(top, text="Activity", command=lambda: raise_frame(EditActivity))
-        activity.pack(pady=5, padx=5, side=LEFT)
 
 
-def edit():
-    ed = Edit(Home)
-    Home.wait_window(ed.top)
 
-
-class Add:
-    def __init__(self, parent):
-        top = self.top = Toplevel(parent)
-
-        Label(top, text="Add").pack()
-
-        Label(top, text='What do you want to add?')
-
-        cat = Button(top, text="Category", command=lambda: raise_frame(AddCategory))
-        cat.pack(pady=5, padx=5, side=LEFT)
-
-        act = Button(top, text="Activity", command=lambda: raise_frame(AddActivity))
-        act.pack(pady=5, padx=5, side=LEFT)
-
-
-def add():
-    ad = Add(Home)
-    Home.wait_window(ad.top)
 
 TopFrame = Frame(Home)
 MiddleFrame = Frame(Home, padx=200)
@@ -156,7 +121,7 @@ def insert():
         insert_event(NameOfActivity.get(), Category.get(), HoursFrom.get(), MinTo.get(), date, Importance.get(),
                      frequency)
     raise_frame(Home)
-    
+
 
 # The first frame contains the name of the event the user will write
 NameFrame = Frame(AddActivity)
