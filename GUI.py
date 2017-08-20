@@ -48,9 +48,9 @@ def add():
 
 class Edit:
     def __init__(self, parent):
-        top = self.top = Toplevel(parent)
+        top = self.top = Toplevel(parent,bg='blue')
 
-        Label(top,text="Edit").pack()
+        Label(top,bg='blue',fg='white',text="Edit").pack()
 
         Label(top, text='What do you want to edit?')
 
