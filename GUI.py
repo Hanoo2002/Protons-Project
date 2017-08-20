@@ -31,7 +31,7 @@ class Edit:
     def __init__(self, parent):
         top = self.top = Toplevel(parent)
 
-        Label(top, text="Edit").pack()
+        Label(top,fg='white',bg='blue' ,text="Edit").pack()
 
         Label(top, text='What do you want to edit?')
 
