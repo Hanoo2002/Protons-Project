@@ -28,16 +28,16 @@ for frame in (Home, AddActivity, AddCategory, EditActivity, EditCategory, Calend
 
 class Add:
     def __init__(self, parent):
-        top = self.top = Toplevel(parent,bg='blue')
+        top = self.top = Toplevel(parent,bg='yellow')
 
-        Label(top, fg='white',bg='blue' ,text="Add").pack()
+        Label(top, fg='orange',bg='yellow' ,text="Add").pack()
 
-        Label(top,fg='white',bg='blue' , text='What do you want to add?')
+        Label(top,fg='orange',bg='yellow' , text='What do you want to add?')
 
-        cat = Button(top,fg='white',bg='blue' , text="Category", command=lambda: raise_frame(AddCategory))
+        cat = Button(top,fg='orange',bg='yellow' , text="Category", command=lambda: raise_frame(AddCategory))
         cat.pack(pady=5, padx=5, side=LEFT)
 
-        act = Button(top,fg='white',bg='blue' , text="Activity", command=lambda: raise_frame(AddActivity))
+        act = Button(top,fg='orange',bg='yellow' , text="Activity", command=lambda: raise_frame(AddActivity))
         act.pack(pady=5, padx=5, side=LEFT)
 
 
@@ -48,16 +48,16 @@ def add():
 
 class Edit:
     def __init__(self, parent):
-        top = self.top = Toplevel(parent,bg='blue')
+        top = self.top = Toplevel(parent,bg='yellow')
 
-        Label(top,bg='blue',fg='white',text="Edit").pack()
+        Label(top,bg='yellow',fg='orange',text="Edit").pack()
 
         Label(top, text='What do you want to edit?')
 
-        cate = Button(top,fg='white',bg='blue' , text="Category", command=lambda: raise_frame(EditCategory))
+        cate = Button(top,fg='orange',bg='yellow' , text="Category", command=lambda: raise_frame(EditCategory))
         cate.pack(pady=5, padx=5, side=LEFT)
 
-        activity = Button(top,fg='white',bg='blue' , text="Activity", command=lambda: raise_frame(EditActivity))
+        activity = Button(top,fg='orange',bg='yellow' , text="Activity", command=lambda: raise_frame(EditActivity))
         activity.pack(pady=5, padx=5, side=LEFT)
 
 
@@ -66,33 +66,33 @@ def edit():
     Home.wait_window(ed.top)
 
 
-TopFrame = Frame(Home)
-MiddleFrame = Frame(Home, padx=200)
-BottomFrame = Frame(Home)
-LastFrame_Home = Frame(Home)
+TopFrame = Frame(Home,bg='cyan')
+MiddleFrame = Frame(Home, padx=200,bg='cyan')
+BottomFrame = Frame(Home,bg='cyan')
+LastFrame_Home = Frame(Home,bg='cyan')
 
 TopFrame.pack(side='top', fill=X)
 MiddleFrame.pack(side='top', ipady=5, fill=X)
 BottomFrame.pack(side='top', ipady=5, fill=X)
 LastFrame_Home.pack(side='top', ipady=5, fill=X)
 
-HomeLabel = Label(TopFrame, text='Home')
-HomeLabel.pack(side=LEFT)
+HomeLabel = Label(TopFrame,fg='dim gray',bg='cyan',text='Home',font="Times 32 bold italic")
+HomeLabel.pack(side=LEFT,padx=400)
 
-AddButton = Button(TopFrame, text='Add', command=add)
+AddButton = Button(TopFrame, text='+',bg='SlateBlue3',fg='dim gray', command=add,font='Ariel 20 bold')
 AddButton.pack(side=RIGHT)
 
-CalendarButton = Button(MiddleFrame, text='Calendar', command=lambda: raise_frame(Calendar))
-CalendarButton.pack(padx=5, pady=10, side=LEFT)
+CalendarButton = Button(MiddleFrame,bg='yellow',fg='dim gray',text='Calendar',font='Ariel 20 bold', command=lambda: raise_frame(Calendar))
+CalendarButton.pack(padx=10, pady=10, side=LEFT)
 
-TodoButton = Button(MiddleFrame, text='Todo', command=lambda: raise_frame(Todo))
-TodoButton.pack(padx=5, pady=10, side=LEFT)
+TodoButton = Button(MiddleFrame, text='Todo',bg='red',fg='dim gray',font='Ariel 20 bold', command=lambda: raise_frame(Todo))
+TodoButton.pack(padx=10, pady=10, side=LEFT)
 
-TodayButton = Button(MiddleFrame, text='Today', command=lambda: raise_frame(Today))
-TodayButton.pack(padx=5, pady=10, side=LEFT)
+TodayButton = Button(MiddleFrame, text='Today',bg='lime',fg='dim gray',font='Ariel 20 bold', command=lambda: raise_frame(Today))
+TodayButton.pack(padx=10, pady=10, side=LEFT)
 
-NowButton = Button(MiddleFrame, text='Now', command=lambda: raise_frame(Now))
-NowButton.pack(padx=5, pady=10, side=LEFT)
+NowButton = Button(MiddleFrame,bg='hot pink',fg='dim gray', text='Now',font='Ariel 20 bold', command=lambda: raise_frame(Now))
+NowButton.pack(padx=10, pady=10, side=LEFT)
 
 
 category_name = strainer('name', 'sort', 'category')
@@ -105,7 +105,7 @@ for i in range(0, len(category_name)):
     CategoryButton.pack(padx=5, pady=5, fill=X)
     number += 1
 
-EditButton = Button(LastFrame_Home, text='Edit', command=edit)
+EditButton = Button(LastFrame_Home,bg='gold2',fg='dim gray',font='Ariel 20 bold', text='Edit', command=edit)
 EditButton.pack()
 
 ########################################################################################################################
@@ -159,10 +159,10 @@ def insert():
 
 
 # The first frame contains the name of the event the user will write
-NameFrame = Frame(AddActivity)
+NameFrame = Frame(AddActivity,bg='cyan')
 NameFrame.pack(side='top', fill=X, ipady=5)
 
-NameLabel = Label(NameFrame, text='Name: ')
+NameLabel = Label(NameFrame,bg='cyan',fg='dim gray', text='Name: ')
 NameLabel.pack(side=LEFT)
 FirstClick = True
 
@@ -172,7 +172,7 @@ NameOfActivity.bind('<FocusIn>', on_entry_click)
 NameOfActivity.pack(ipadx=25, side=LEFT)
 
 # This frame includes a DropDownMenu which gets all of the categories in the database
-CategoryFrame = Frame(AddActivity)
+CategoryFrame = Frame(AddActivity,bg='cyan')
 CategoryFrame.pack(side='top', ipady=5, fill=X)
 
 category_names = []
