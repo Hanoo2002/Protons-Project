@@ -48,16 +48,16 @@ def add():
 
 class Edit:
     def __init__(self, parent):
-        top = self.top = Toplevel(parent,bg='yellow')
+        top = self.top = Toplevel(parent,bg='lime')
 
-        Label(top,bg='yellow',fg='orange',text="Edit").pack()
+        Label(top,bg='lime',fg='dim gray',text="Edit").pack()
 
         Label(top, text='What do you want to edit?')
 
-        cate = Button(top,fg='orange',bg='yellow' , text="Category", command=lambda: raise_frame(EditCategory))
+        cate = Button(top,fg='dim gray',bg='lime' , text="Category", command=lambda: raise_frame(EditCategory))
         cate.pack(pady=5, padx=5, side=LEFT)
 
-        activity = Button(top,fg='orange',bg='yellow' , text="Activity", command=lambda: raise_frame(EditActivity))
+        activity = Button(top,fg='dim gray',bg='lime' , text="Activity", command=lambda: raise_frame(EditActivity))
         activity.pack(pady=5, padx=5, side=LEFT)
 
 
@@ -94,6 +94,9 @@ TodayButton.pack(padx=10, pady=10, side=LEFT)
 NowButton = Button(MiddleFrame,bg='hot pink',fg='dim gray', text='Now',font='Ariel 20 bold', command=lambda: raise_frame(Now))
 NowButton.pack(padx=10, pady=10, side=LEFT)
 
+EditButton = Button(LastFrame_Home,bg='gold2',fg='dim gray',font='Ariel 20 bold', text='Edit', command=edit)
+EditButton.pack()
+
 
 category_name = strainer('name', 'sort', 'category')
 number = 0
@@ -105,12 +108,11 @@ for i in range(0, len(category_name)):
     CategoryButton.pack(padx=5, pady=5, fill=X)
     number += 1
 
-EditButton = Button(LastFrame_Home,bg='gold2',fg='dim gray',font='Ariel 20 bold', text='Edit', command=edit)
-EditButton.pack()
+
 
 ########################################################################################################################
 # AddActivity Frame
-# The layout is devided in many frames
+# The layout is divided in many frames
 
 
 def on_entry_click(event):
@@ -153,8 +155,8 @@ def insert():
         insert_todo(NameOfActivity.get(), Category.get(), HoursFrom.get(), MinTo.get(), date_of_activity,
                     Importance.get(), frequency)
     else:
-        insert_event(NameOfActivity.get(), Category.get(), HoursFrom.get(), MinTo.get(), date, Importance.get(),
-                     frequency)
+        insert_event(NameOfActivity.get(), Category.get(), HoursFrom.get(), MinTo.get(), date, Importance.get())
+                     # frequency)
     raise_frame(Home)
 
 
@@ -299,7 +301,7 @@ def insert():
     insert_category(name.get(), Importance.get())
     raise_frame(Home)
 
-Insert_AddCategory = Button(LastFrame_AddCategory, text='Back', command=insert).pack(side=LEFT, ipadx=20)
+Insert_AddCategory = Button(LastFrame_AddCategory,fg='dim gray',bg='cyan', text='Back', command=insert).pack(side=LEFT, ipadx=20)
 Back_AddCategory = Button(LastFrame_AddCategory, text='Back', command=back).pack(side=LEFT, ipadx=20)
 ########################################################################################################################
 # EditActivity Frame
